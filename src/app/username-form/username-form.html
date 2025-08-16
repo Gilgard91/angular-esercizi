@@ -1,0 +1,119 @@
+<body>
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">Dashboard Angular</h1>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Form reattivo -->
+    <div class="card">
+      <h3 class="card-title">Form Reattivo</h3>
+      <div class="form-group">
+        <input class="form-control" placeholder="Inserisci username..." [formControl]="usernameControl">
+        <div class="form-feedback">
+          Hai scritto: <strong>{{ usernameControl.value || 'niente ancora...' }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contatori -->
+    <div class="card">
+      <h3 class="card-title">Contatori</h3>
+
+      <div class="btn-group">
+        <button class="btn btn-success" (click)="increment()">
+          ➕ Incrementa
+        </button>
+        <button class="btn btn-danger" (click)="decrement()">
+          ➖ Decrementa
+        </button>
+      </div>
+
+      <div class="counter-display">
+        <div class="counter-value">{{ counter() }}</div>
+        <div class="counter-label">Counter</div>
+      </div>
+
+      <div class="counter-display">
+        <div class="counter-value">{{ randomCounter() }}</div>
+        <div class="counter-label">computation</div>
+      </div>
+    </div>
+
+    <!-- Gestione utenti -->
+    <div class="card">
+      <h3 class="card-title">Gestione Utenti</h3>
+
+      <ul class="user-list">
+         @for (user of users(); track user.id) {
+        <li class="user-item">
+          <button class="user-btn" (click)="selectUser(user)">
+            {{user.name}}
+          </button>
+        </li>
+         }
+      </ul>
+
+      <div class="selected-user">
+        <strong>Utente selezionato:</strong> {{ selectedUser()?.name || 'nessuno' }}
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-danger" (click)="removeFirstUser()">
+          🗑️ Rimuovi Primo
+        </button>
+        <button class="btn btn-danger" (click)="removeSelectedUser()">
+          ❌ Rimuovi Selezionato
+        </button>
+        <button class="btn btn-success" (click)="restoreUsers()">
+          🔄 Ripristina
+        </button>
+        <button class="btn btn-secondary" (click)="clearUsers()">
+          🧹 Svuota Lista
+        </button>
+      </div>
+
+      <div class="user-count">
+        👥 Numero di utenti: <strong>{{ userCount() }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informazioni aggiuntive -->
+  <div class="card">
+    <h3 class="card-title">Informazioni Sistema</h3>
+    <div class="dashboard-grid">
+      <div class="info-display">
+        <div class="info-value">{{userId}}</div>
+        <div class="info-label">User ID</div>
+      </div>
+      <div class="info-display">
+        <div class="info-value">{{data}}</div>
+        <div class="info-label">Data</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigazione -->
+  <div class="navigation">
+    <h3 class="card-title">Navigazione</h3>
+    <ul class="nav-list">
+      <li>
+        <a class="nav-link active" routerLink="/" routerLinkActive="active">
+          🏠 Torna alla Home
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" [routerLink]="['detail']" routerLinkActive="active">
+          📋 Dettagli
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Router outlet placeholder -->
+  <div class="card">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+</body>
