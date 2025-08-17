@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {HttpClient, HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {CountService} from '../count.service';
 
 @Component({
   selector: 'app-username-form',
@@ -16,19 +17,20 @@ export class UsernameForm {
   userId: string | null;
   data: string | null;
   private http = inject(HttpClient);
-
+  private countService = inject(CountService);
 
 
   constructor(private route: ActivatedRoute) {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.data = this.route.snapshot.data['data'];
     effect(() => {
-      console.log('il risultato della computation è', this.randomCounter());
+      console.log('il risultato della computation è', this.computedCounter());
     });
   }
   usernameControl = new FormControl('pippoaaa');
 
   counter = signal(0);
+  readonly counterz = this.counter.asReadonly();
 
   increment() {
     this.counter.update(c => c + 1);
@@ -38,9 +40,23 @@ export class UsernameForm {
     this.counter.update(c => c - 1);
   }
 
-  randomCounter = computed(() => this.counter() * 2);
+  computedCounter = computed(() => this.counterz() * 2);
 
+///////////////////////
 
+  incrementaNumero() {
+    this.countService.increment();
+  }
+
+  decrementaNumero() {
+    this.countService.decrement();
+  }
+
+  resettaNumero() {
+    this.countService.reset();
+  }
+
+  //////////////////////
 
   readonly initialUsers: User[] = [
     {id: '1', name: 'Pippo', surname: 'Pluto'},

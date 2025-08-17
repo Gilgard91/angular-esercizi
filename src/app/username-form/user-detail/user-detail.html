@@ -1,3 +1,21 @@
 <h1>Demo HttpClient con interceptor</h1>
-<button (click)="fetchData()">Fai richiesta</button>
-<pre>{{ data | json }}</pre>
+<button (click)="fetchData()">Singolo</button>
+<button (click)="fetchAllTodos()">Tutti</button>
+<button (click)="clearTodos()">Clear</button>
+
+
+
+<!--<pre>{{ data | json }}</pre>-->
+<!--<div *ngFor="let todo of data">-->
+
+<h5>Numero da service: {{numeroDaService()}}</h5>
+
+@for (todo of data; track todo.id) {
+  <h3>Todo #{{ todo.id }}</h3>
+  <p><strong>Titolo:</strong> {{ todo.title }}</p>
+  <p><strong>Completato:</strong> {{ todo.completed ? '✅' : '❌' }}</p>
+  <p><strong>User ID:</strong> {{ todo.userId }}</p>
+  <hr>
+}
+
+<!--</div>-->

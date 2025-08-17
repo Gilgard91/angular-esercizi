@@ -35,7 +35,7 @@
       </div>
 
       <div class="counter-display">
-        <div class="counter-value">{{ randomCounter() }}</div>
+        <div class="counter-value">{{ computedCounter() }}</div>
         <div class="counter-label">computation</div>
       </div>
     </div>
@@ -103,6 +103,13 @@
           🏠 Torna alla Home
         </a>
       </li>
+
+      <button class="btn btn-success" (click)="incrementaNumero()">
+        ➕ Incrementa numero in dettagli
+      </button>
+      <button class="btn btn-success" (click)="decrementaNumero()">
+        ➖ Decrementa numero in dettagli
+      </button>
       <li>
         <a class="nav-link" [routerLink]="['detail']" routerLinkActive="active">
           📋 Dettagli

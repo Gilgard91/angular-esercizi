@@ -2,6 +2,8 @@ import {Component, inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JsonPipe} from '@angular/common';
 import {BehaviorSubject, Observable, Observer} from 'rxjs';
+import {JSONPlaceholderAPIService, Todo} from '../../api/jsonplaceholder';
+import {CountService} from '../../count.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -12,11 +14,71 @@ import {BehaviorSubject, Observable, Observer} from 'rxjs';
   styleUrl: './user-detail.scss'
 })
 export class UserDetail {
-  data: any[] = ['suca'];
+  data: any[] = [];
+  private apiService = inject(JSONPlaceholderAPIService);
+  private countService = inject(CountService);
+
+  numeroDaService = this.countService.count;
 
   constructor() {}
 
-  private http = inject(HttpClient);
+  fetchData() {
+    // Metodo 1: Chiamata semplice con subscribe
+    this.apiService.getTodosId(3).subscribe({
+      next: (todo: Todo) => {
+        console.log('Todo ricevuto:', todo);
+        this.data.push(todo);
+      },
+      error: (err) => {
+        console.error('Errore:', err);
+      },
+      complete: () => {
+        console.log('Richiesta completata');
+      }
+    });
+  }
+
+// Metodo alternativo per ottenere tutti i todos
+  fetchAllTodos() {
+    this.apiService.getTodos().subscribe({
+      next: (todos: Todo[]) => {
+        console.log('Todos ricevuti:', todos);
+        this.data = todos; // Sostituisce l'array
+      },
+      error: (err) => console.error('Errore:', err)
+    });
+  }
+
+  clearTodos() {
+    this.data  = [];
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // private http = inject(HttpClient);
+
 
   // fetchData() {
   //   this.http.get('https://jsonplaceholder.typicode.com/todos/3', {observe: 'response'}).subscribe(res => {
@@ -27,33 +89,33 @@ export class UserDetail {
   // }
   //
 
-  fetchData() {
-    //observable
-    const dataStream$: Observable<Object> = this.http.get('https://jsonplaceholder.typicode.com/todos/3');
-
-    //observer
-    const observer: Observer<any> = {
-      next: (res: any) => {
-        console.log('Dati ricevuti:', res);
-        this.data.push(res);
-      },
-      error: (err: any) => {
-        console.error('Errore:', err);
-      },
-      complete: () => {
-        console.log('Richiesta completata.');
-      }
-    };
+  // fetchData() {
+  //   //observable
+  //   const dataStream$: Observable<Object> = this.http.get('https://jsonplaceholder.typicode.com/todos/3');
+  //
+  //   //observer
+  //   const observer: Observer<any> = {
+  //     next: (res: any) => {
+  //       console.log('Dati ricevuti:', res);
+  //       this.data.push(res);
+  //     },
+  //     error: (err: any) => {
+  //       console.error('Errore:', err);
+  //     },
+  //     complete: () => {
+  //       console.log('Richiesta completata.');
+  //     }
+  //   };
 
 
 
     // //observable + observer
-    const sub = dataStream$.subscribe(observer);
-
-    observer.next({
-      'nome' : 'pippo',
-      'age' : 13,
-    })
+    // const sub = dataStream$.subscribe(observer);
+    //
+    // observer.next({
+    //   'nome' : 'pippo',
+    //   'age' : 13,
+    // })
 
     //
     // setTimeout(() => {
@@ -83,5 +145,5 @@ export class UserDetail {
    //  }, 5)
    //
    //  subject.next(2);
-  }
+  // }
 }
