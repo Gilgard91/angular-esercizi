@@ -30,7 +30,7 @@
       </div>
 
       <div class="counter-display">
-        <div class="counter-value">{{ counter() }}</div>
+        <div class="counter-value">{{ _counter() }}</div>
         <div class="counter-label">Counter</div>
       </div>
 
@@ -110,6 +110,9 @@
       <button class="btn btn-success" (click)="decrementaNumero()">
         ➖ Decrementa numero in dettagli
       </button>
+      <button class="btn btn-success" (click)="resettaNumero()">
+        🆒 Resetta numero in dettagli
+      </button>
       <li>
         <a class="nav-link" [routerLink]="['detail']" routerLinkActive="active">
           📋 Dettagli
@@ -121,6 +124,7 @@
   <!-- Router outlet placeholder -->
   <div class="card">
     <router-outlet></router-outlet>
+<!--    <app-detail [numero]="numero()"></app-detail>-->
   </div>
 </div>
 </body>

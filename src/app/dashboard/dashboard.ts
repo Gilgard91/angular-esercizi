@@ -4,20 +4,24 @@ import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angul
 import {HttpClient, HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CountService} from '../count.service';
+import {Detail} from './detail/detail';
 
 @Component({
-  selector: 'app-username-form',
+  selector: 'app-dashboard',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, RouterLinkActive, RouterOutlet],
-  templateUrl: './username-form.html',
-  styleUrls: ['./username-form.scss'],
+  imports: [ReactiveFormsModule, RouterLink, RouterLinkActive, RouterOutlet, Detail],
+  templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.scss'],
 })
 
-export class UsernameForm {
+export class Dashboard {
   userId: string | null;
   data: string | null;
   private http = inject(HttpClient);
   private countService = inject(CountService);
+
+  private _numero = signal(0);
+  numero = this._numero.asReadonly();
 
 
   constructor(private route: ActivatedRoute) {
@@ -29,23 +33,24 @@ export class UsernameForm {
   }
   usernameControl = new FormControl('pippoaaa');
 
-  counter = signal(0);
-  readonly counterz = this.counter.asReadonly();
+  _counter = signal(0);
+  readonly counter = this._counter.asReadonly();
 
   increment() {
-    this.counter.update(c => c + 1);
+    this._counter.update(c => c + 1);
   }
 
   decrement() {
-    this.counter.update(c => c - 1);
+    this._counter.update(c => c - 1);
   }
 
-  computedCounter = computed(() => this.counterz() * 2);
+  computedCounter = computed(() => this.counter() * 2);
 
 ///////////////////////
 
   incrementaNumero() {
     this.countService.increment();
+    // this._numero.update(n => n + 1);
   }
 
   decrementaNumero() {

@@ -1,0 +1,47 @@
+# openapi.yaml
+openapi: 3.0.0
+info:
+  title: JSONPlaceholder API
+  version: 1.0.0
+servers:
+  - url: https://jsonplaceholder.typicode.com
+paths:
+  /todos/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Todo item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+  /todos:
+    get:
+      responses:
+        '200':
+          description: List of todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        title:
+          type: string
+        completed:
+          type: boolean

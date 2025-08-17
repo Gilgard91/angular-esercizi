@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JsonPipe} from '@angular/common';
 import {BehaviorSubject, Observable, Observer} from 'rxjs';
@@ -6,19 +6,20 @@ import {JSONPlaceholderAPIService, Todo} from '../../api/jsonplaceholder';
 import {CountService} from '../../count.service';
 
 @Component({
-  selector: 'app-user-detail',
+  selector: 'app-detail',
   imports: [
     JsonPipe
   ],
-  templateUrl: './user-detail.html',
-  styleUrl: './user-detail.scss'
+  templateUrl: './detail.html',
+  styleUrl: './detail.scss'
 })
-export class UserDetail {
+export class Detail {
   data: any[] = [];
   private apiService = inject(JSONPlaceholderAPIService);
   private countService = inject(CountService);
 
   numeroDaService = this.countService.count;
+  @Input() numero: number = 0;
 
   constructor() {}
 

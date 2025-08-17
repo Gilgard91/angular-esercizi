@@ -3,17 +3,17 @@ import {Home} from './home/home';
 
 const titleResolver: ResolveFn<string> = (route) => route.params['id'];
 
-export const USERS_ROUTES: Routes = [
+export const DASHBOARD_ROUTES: Routes = [
   {
     path: ':id',
-    loadComponent: () => import('./username-form/username-form').then(m => m.UsernameForm),
+    loadComponent: () => import('./dashboard/dashboard').then(m => m.Dashboard),
     // title: (route) => route.params['id'],
     title: titleResolver,
     data: { data: 'data test' },
     children: [
       {
         path: 'detail',
-        loadComponent: () => import('./username-form/user-detail/user-detail').then(m => m.UserDetail),
+        loadComponent: () => import('./dashboard/detail/detail').then(m => m.Detail),
       }
     ]
   }

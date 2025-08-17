@@ -1,4 +1,4 @@
-<h1>Demo HttpClient con interceptor</h1>
+<h4>Chiamata con HttpClient + interceptor</h4>
 <button (click)="fetchData()">Singolo</button>
 <button (click)="fetchAllTodos()">Tutti</button>
 <button (click)="clearTodos()">Clear</button>
@@ -9,6 +9,8 @@
 <!--<div *ngFor="let todo of data">-->
 
 <h5>Numero da service: {{numeroDaService()}}</h5>
+
+<!--<h5>Numero da padre: {{numero}}</h5>-->
 
 @for (todo of data; track todo.id) {
   <h3>Todo #{{ todo.id }}</h3>

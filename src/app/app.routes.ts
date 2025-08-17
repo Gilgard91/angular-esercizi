@@ -1,7 +1,7 @@
 import {ResolveFn, Routes} from '@angular/router';
-import {UsernameForm} from './username-form/username-form';
+import {Dashboard} from './dashboard/dashboard';
 import {Home} from './home/home';
-import {UserDetail} from './username-form/user-detail/user-detail';
+import {Detail} from './dashboard/detail/detail';
 
 
 
@@ -14,7 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: () => import('./users.routes').then(m => m.USERS_ROUTES),
+    loadChildren: () => import('./dashboard.routes').then(m => m.DASHBOARD_ROUTES),
   },
   { path: '**', redirectTo: '' }
 
